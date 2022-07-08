@@ -47,11 +47,11 @@
 
 - 代码
 为了更贴近协作学习中分布式的实际场景，复赛代码模板进行了更新，主要有以下变化：
-  1. 新增 worker.py 和 server.py，分别模拟实际场景中 worker 节点和参数服务器PS的功能， model.py 只包含 FedAveragingGrads 用来控制 worker 和PS完成协作学习。
-  2. 不再存在验证集。初赛代码中的验证集实际是将多个 worker 的数据进行了结合，这违反了数据隐私性的标准，在实际协作学习场景中是不允许的。参赛选手可以自行设计算法达到类似验证集的效果，但注意不要违反数据隐私性。
+  - 新增 worker.py 和 server.py，分别模拟实际场景中 worker 节点和参数服务器PS的功能， model.py 只包含 FedAveragingGrads 用来控制 worker 和PS完成协作学习。
+  - 不再存在验证集。初赛代码中的验证集实际是将多个 worker 的数据进行了结合，这违反了数据隐私性的标准，在实际协作学习场景中是不允许的。参赛选手可以自行设计算法达到类似验证集的效果，但注意不要违反数据隐私性。
   
 
 - 同时在代码书写时需注意以下事项：
-  1. preprocess.py 中已经仅包含数据读入功能，训练数据的预处理请在 worker.py 完成，测试数据的预处理请在 server.py 完成。 preprocess.py 不允许参赛选手更改。
-  2. 实际场景中在 worker 节点上完成的功能请在 worker.py 中定义，实际场景中在参数服务器上完成的功能请在 server.py 中定义（预测测试集标签功能默认在服务器上）。 model.py 只控制 worker 和 PS完成协作学习，不允许定义功能类函数。
-  3. 每个worker只能读取自己的数据。worker和server进行数据特征传输请通过各自类中 receive_xx_info() 函数进行，例如模板代码中 worker 将每轮训练的准确率传输到server上，并在 server 里完成了处理；同时server 也将平均的训练准确率回传到了各个worker。
+  - preprocess.py 中已经仅包含数据读入功能，训练数据的预处理请在 worker.py 完成，测试数据的预处理请在 server.py 完成。 preprocess.py 不允许参赛选手更改。
+  - 实际场景中在 worker 节点上完成的功能请在 worker.py 中定义，实际场景中在参数服务器上完成的功能请在 server.py 中定义（预测测试集标签功能默认在服务器上）。 model.py 只控制 worker 和 PS完成协作学习，不允许定义功能类函数。
+  - 每个worker只能读取自己的数据。worker和server进行数据特征传输请通过各自类中 receive_xx_info() 函数进行，例如模板代码中 worker 将每轮训练的准确率传输到server上，并在 server 里完成了处理；同时server 也将平均的训练准确率回传到了各个worker。
